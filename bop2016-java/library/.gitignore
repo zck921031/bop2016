@@ -1,0 +1,5 @@
+*.gz
+!.gitignore
+!commons-collections4-4.1.jar
+!json-20160212.jar
+!*.jar
