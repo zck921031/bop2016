@@ -16,12 +16,12 @@ public class MTGraph implements Runnable{
 		b = B;
 	}
 	public void run(){
-		try {
-			Thread.sleep( (long)(1000*Math.random()) );
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep( (long)(1000*Math.random()) );
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		while ( true ){
 			Pair<Long,String> query;
 			synchronized (queries){
@@ -45,7 +45,7 @@ public class MTGraph implements Runnable{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList queries = new ArrayList<Pair<Long,String>>();
-		for(int i=0; i<400; i++){
+		for(int i=0; i<40; i++){
 			queries.add(new Pair(10000000000L+i, "Id" ));
 			queries.add(new Pair(10000000000L-i, "AA.AuId" ));
 		}
