@@ -164,9 +164,9 @@ public class Graph {
 			    }
 		    }
 
-			System.out.println("result size : "+nodes.size());
-			System.out.println(nodes);
-			System.out.println("");
+//			System.out.println("result size : "+nodes.size());
+//			System.out.println(nodes);
+//			System.out.println("");
 		}
 		catch (Exception e)
 		{
