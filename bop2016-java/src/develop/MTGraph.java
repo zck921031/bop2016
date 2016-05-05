@@ -57,12 +57,12 @@ public class MTGraph implements Runnable{
 	
 	public static ConcurrentHashMap<Long, ConcurrentHashMap<Long,String>> 
 	getNextNodesByEqual(ArrayList<Pair<Long,String>> queries){
-		long threads = 80;	// 线程数
+		long threads = 8;	// 线程数
 		Iterator<Pair<Long,String>> itor = queries.iterator();
 		AtomicLong workers = new AtomicLong(threads);
 		ConcurrentHashMap<Long, ConcurrentHashMap<Long,String>> answers =
 				new ConcurrentHashMap<Long, ConcurrentHashMap<Long,String>>();
-		Object b = new Object();		
+		Object b = new Object();
 		MTGraph test = new MTGraph(itor, workers, answers, b);
 		for (int i=0; i<threads; i++){
 			new Thread(test).start();
@@ -117,7 +117,8 @@ public class MTGraph implements Runnable{
 			if ( !hop2.containsKey(key1) ) continue;
 			for(Long key2 : hop2.get(key1).keySet() ){
 				if( rhop1.containsKey(key2) ){
-					if( X!=key1 && X!=key2 && key1!=key2 && key1!=Y && key2!=Y ){
+					//if( X!=key1 && X!=key2 && key1!=key2 && key1!=Y && key2!=Y ){
+					if( X!=key1 && X!=key2 && key1!=key2 ){
 						json.add( "["+X + "," + key1 +","+ +key2+","+Y +"]");
 						//System.out.println("Find 3-hop answer: "+ X + " -> " + key1 + " -> " + key2 + " -> "+ Y);
 					}
@@ -133,7 +134,10 @@ public class MTGraph implements Runnable{
 //			queries.add(new Pair(10000000000L+i, "Id" ));
 //			queries.add(new Pair(10000000000L-i, "AA.AuId" ));
 //		}
-		System.out.println( solve(2140251882L, 2145115012L) );
+		//System.out.println( solve(2140251882L, 2145115012L) );
+		Long ss = System.currentTimeMillis();
+		System.out.println( solve(2251253715L, 2180737804L) );
+		System.out.println( System.currentTimeMillis()-ss );
 	}
 
 }

@@ -100,7 +100,7 @@ public class Graph {
 		Long start_time = System.currentTimeMillis();
 		try
 		{
-		    URIBuilder builder = new URIBuilder("https://oxfordhk.azure-api.net/academic/v1.0/evaluate");
+		    URIBuilder builder = new URIBuilder("http://oxfordhk.azure-api.net/academic/v1.0/evaluate");
 			builder.setParameters(nvps);
 			builder.setParameter("expr", expr );
 			builder.setParameter("attributes", queryString.get(Name) );
