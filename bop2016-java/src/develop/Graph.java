@@ -91,8 +91,8 @@ public class Graph {
 	public ConcurrentHashMap<Long, String> getNextNodeByEqual(Long id, String Name){
 		ConcurrentHashMap<Long, String> nodes = new ConcurrentHashMap<Long, String>();
 		String expr;
-		if( Name.equals("Id") ){
-			expr = "Id="+ id.toString();
+		if( Name.equals("Id") || Name.equals("RId")  ){
+			expr = Name+"="+ id.toString();
 		}else{
 			expr = "Composite("+Name+"="+id.toString()+")";
 		}
@@ -191,7 +191,8 @@ public class Graph {
 //		if(1==1) return; 
 //		System.setOut(new PrintStream(new File("D:/output-file.txt")));
 		//long X = 2140251882L, Y = 2140251882L; 
-		long X = 2140251882L, Y = 2145115012L;
+		//long X = 2140251882L, Y = 2145115012L;
+		long X = 2147152072L, Y = 189831743L;
 		//long Y = 2140251882L, X = 2145115012L;
 		Graph g = new Graph();
 		
@@ -221,6 +222,8 @@ public class Graph {
 		}else{
 			ConcurrentMap<Long, String> rhop1_id = g.getNextNodeByEqual(Y, "Id");
 			ConcurrentMap<Long, String> rhop1_Rid = g.getNextNodeByEqual(Y, "RId");
+			System.out.println( rhop1_id.size() );
+			System.out.println( rhop1_Rid.size() );
 			rhop1 = rhop1_Rid;
 			for( Long key : rhop1_id.keySet() ){
 				String value = rhop1_id.get(key);
