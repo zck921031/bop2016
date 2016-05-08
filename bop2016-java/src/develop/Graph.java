@@ -88,7 +88,7 @@ public class Graph {
 		}
 	}
 	
-	public ConcurrentHashMap<Long, String> getNextNodeByEqual(Long id, String Name){
+	public ConcurrentHashMap<Long, String> getNextNodeByEqual(Long id, String Name, String constraint){
 		ConcurrentHashMap<Long, String> nodes = new ConcurrentHashMap<Long, String>();
 		String expr;
 		if( Name.equals("Id") || Name.equals("RId")  ){
@@ -97,6 +97,17 @@ public class Graph {
 			expr = "Composite("+Name+"="+id.toString()+")";
 		}
 		
+		if ( constraint.length()>0 ){
+			String[] strs = constraint.split("=");
+			String id2 = strs[0];
+			String name2 = strs[1];
+			if( name2.equals("Id") ){
+				if( Name.equals("F.FId") || Name.equals("J.JId") || Name.equals("C.CId") ){
+					expr = "AND("+ expr +",RId="+ id2 + ")";
+					//System.out.println(expr);
+				}
+			}
+		}
 		Long start_time = System.currentTimeMillis();
 		try
 		{
@@ -198,11 +209,11 @@ public class Graph {
 		
 		// 正向按照题意走。
 		ConcurrentMap<Long, String> hop1 = null;
-		ConcurrentMap<Long, String> hop1_AuId = g.getNextNodeByEqual(X, "AA.AuId");
+		ConcurrentMap<Long, String> hop1_AuId = g.getNextNodeByEqual(X, "AA.AuId", "");
 		if( hop1_AuId.size()>0 ){
 			hop1 = hop1_AuId;
 		}else{
-			ConcurrentMap<Long, String> hop1_Id = g.getNextNodeByEqual(X, "Id");
+			ConcurrentMap<Long, String> hop1_Id = g.getNextNodeByEqual(X, "Id", "");
 			hop1 = hop1_Id;
 		}
 		
@@ -211,17 +222,17 @@ public class Graph {
 		for(Long key : hop1.keySet()){
 			String value = hop1.get(key);
 			value = value.equals("RId")?"Id":value;
-			hop2.put(key, g.getNextNodeByEqual(key, value) );
+			hop2.put(key, g.getNextNodeByEqual(key, value, "") );
 		}
 		
 		// 反向走，参考文献的边反向，不需要向参考文献连边，而需要查询哪些文章引用了它。
 		ConcurrentMap<Long, String> rhop1 = null;
-		ConcurrentMap<Long, String> rhop1_AuId = g.getNextNodeByEqual(Y, "AA.AuId");
+		ConcurrentMap<Long, String> rhop1_AuId = g.getNextNodeByEqual(Y, "AA.AuId", "");
 		if( rhop1_AuId.size()>0 ){
 			rhop1 = rhop1_AuId;
 		}else{
-			ConcurrentMap<Long, String> rhop1_id = g.getNextNodeByEqual(Y, "Id");
-			ConcurrentMap<Long, String> rhop1_Rid = g.getNextNodeByEqual(Y, "RId");
+			ConcurrentMap<Long, String> rhop1_id = g.getNextNodeByEqual(Y, "Id", "");
+			ConcurrentMap<Long, String> rhop1_Rid = g.getNextNodeByEqual(Y, "RId", "");
 			System.out.println( rhop1_id.size() );
 			System.out.println( rhop1_Rid.size() );
 			rhop1 = rhop1_Rid;
