@@ -1,5 +1,8 @@
 package develop;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -147,8 +150,9 @@ public class MTGraph implements Runnable{
 		System.out.println( json.toString() );
 		return json.toString();
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
+//		System.setOut(new PrintStream(new File("C:/output-file.txt")));
 //		for(int i=0; i<40; i++){
 //			queries.add(new Pair(10000000000L+i, "Id" ));
 //			queries.add(new Pair(10000000000L-i, "AA.AuId" ));
@@ -156,7 +160,8 @@ public class MTGraph implements Runnable{
 		//System.out.println( solve(2140251882L, 2145115012L) );
 		Long ss = System.currentTimeMillis();
 		//System.out.println( solve(2251253715L, 2180737804L) );
-		System.out.println( solve(2147152072L, 189831743L) );
+		//System.out.println( solve(2147152072L, 189831743L) );
+		System.out.println( solve(2147152072L, 2250283616L) );
 		System.out.println( System.currentTimeMillis()-ss );
 	}
 
