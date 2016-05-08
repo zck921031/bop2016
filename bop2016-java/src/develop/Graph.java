@@ -101,10 +101,16 @@ public class Graph {
 			String[] strs = constraint.split("=");
 			String id2 = strs[0];
 			String name2 = strs[1];
+			// Hand Crafted 约束
 			if( name2.equals("Id") ){
 				if( Name.equals("F.FId") || Name.equals("J.JId") || Name.equals("C.CId") ){
 					expr = "AND("+ expr +",RId="+ id2 + ")";
 					//System.out.println(expr);
+				}
+			}else if ( name2.equals("AA.AuId") ){
+				if( Name.equals("F.FId") || Name.equals("J.JId") || Name.equals("C.CId") ){
+					expr = "AND("+ expr +",Composite(AA.AuId="+ id2 + "))";
+					System.out.println(expr);
 				}
 			}
 		}
